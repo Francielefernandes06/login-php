@@ -10,8 +10,27 @@
 <body>
     <?php
         if(!isset($_SESSION['login'])){
+            if(isset($_POST['submit'])){
+                $login='Franciele';
+                $password='123456';
+
+                $loginForm = $_POST['username'];
+                $passwordForm = $_POST['password'];
+
+                if($loginForm == $login && $passwordForm == $password){
+                    $_SESSION['login'] = $login;
+                    header('Location: index.php');
+                }else{
+                    echo 'Login ou senha incorretos';
+                }   
+            }
             include('login.php');
         }else{
+            if(isset($_GET['logout'])){
+                unset($_SESSION['login']);
+                
+                header('Location: index.php');
+            }
             include('home.php');
         }
     ?>
